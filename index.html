@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--negro:#0f172a;--azul:#38bdf8;--rosa:#f43f5e;--oro:#D4AF37;--gris:#94a3b8;--blanco:#f8fafc}
+:root{--negro:#0f172a;--azul:#38bdf8;--rosa:#f43f5e;--oro:#D4AF37;--morado:#9b59b6;--gris:#94a3b8;--blanco:#f8fafc}
 *{box-sizing:border-box;margin:0}
 body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--blanco);line-height:1.6}
 .container{max-width:1200px;margin:0 auto;padding:20px}
@@ -17,32 +17,30 @@ body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--bla
 .hero p{font-size:1.2rem;color:var(--gris);max-width:600px;margin:0 auto 30px}
 .badge{display:inline-block;background:rgba(56,189,248,.15);color:var(--azul);padding:6px 16px;border-radius:20px;font-size:.85rem;margin-bottom:20px}
 
-/* Productos */
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;margin:40px 0}
-.product{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:30px;text-align:center;transition:transform .3s,box-shadow .3s}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;margin:40px 0}
+.product{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:25px;text-align:center;transition:transform .3s,box-shadow .3s}
 .product:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
-.product h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:8px}
-.product .price{font-size:2.2rem;font-weight:700;color:var(--azul);margin:16px 0}
+.product .icon{font-size:2.5rem;margin-bottom:12px}
+.product h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
+.product .price{font-size:2rem;font-weight:700;color:var(--azul);margin:12px 0}
 .product .price span{font-size:1rem;color:var(--gris);font-weight:300}
-.product ul{list-style:none;padding:0;margin:20px 0;text-align:left}
-.product ul li{padding:6px 0;color:var(--gris);font-size:.95rem}
+.product ul{list-style:none;padding:0;margin:16px 0;text-align:left}
+.product ul li{padding:5px 0;color:var(--gris);font-size:.9rem}
 .product ul li::before{content:'✓ ';color:var(--azul);font-weight:700}
-.btn-demo{display:inline-block;width:100%;padding:14px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:16px;transition:all .2s}
+.btn-demo{display:inline-block;width:100%;padding:12px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:12px;transition:all .2s;font-size:.95rem}
 .btn-demo-primary{background:var(--azul);color:var(--negro)}
 .btn-demo-primary:hover{background:#0ea5e9}
 .btn-demo-secondary{background:transparent;border:1px solid var(--azul);color:var(--azul)}
 .btn-demo-secondary:hover{background:var(--azul);color:var(--negro)}
 
-/* Cómo funciona */
 .how-it-works{background:rgba(255,255,255,.03);border-radius:16px;padding:40px 30px;margin:40px 0;text-align:center}
 .how-it-works h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:30px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}
 .step{text-align:center}
 .step .num{font-size:2.5rem;font-weight:700;color:var(--azul);opacity:.3}
-.step h3{font-size:1.1rem;margin:8px 0}
-.step p{color:var(--gris);font-size:.9rem}
+.step h3{font-size:1rem;margin:8px 0}
+.step p{color:var(--gris);font-size:.85rem}
 
-/* CTA final */
 .cta-final{text-align:center;padding:60px 20px}
 .cta-final h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:16px}
 .btn-whatsapp{display:inline-block;background:#25D366;color:#fff;padding:18px 40px;border-radius:30px;text-decoration:none;font-weight:700;font-size:1.2rem;transition:transform .2s}
@@ -64,10 +62,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--bla
   </div>
 
   <div class="products">
-    <!-- Producto 1: Cumpleaños -->
     <div class="product">
+      <div class="icon">🎂</div>
       <h2>Cumpleaños Premium</h2>
-      <p style="color:var(--gris);font-size:.9rem">Ideal para fiestas infantiles y adultos</p>
+      <p style="color:var(--gris);font-size:.85rem">Ideal para fiestas infantiles y adultos</p>
       <div class="price">$12 <span>USD</span></div>
       <ul>
         <li>Animación de sobre mágico</li>
@@ -80,10 +78,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--bla
       <a href="plantillas/cumpleaños/invitacion-premium.html" class="btn-demo btn-demo-primary">Ver Demo en Vivo</a>
     </div>
 
-    <!-- Producto 2: Boda -->
     <div class="product">
+      <div class="icon">💍</div>
       <h2>Boda Elegante</h2>
-      <p style="color:var(--gris);font-size:.9rem">Estilo formal y sofisticado</p>
+      <p style="color:var(--gris);font-size:.85rem">Estilo formal y sofisticado</p>
       <div class="price">$20 <span>USD</span></div>
       <ul>
         <li>Diseño minimalista en oro y negro</li>
@@ -96,10 +94,26 @@ body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--bla
       <a href="plantillas/bodas/invitacion-boda-elegante.html" class="btn-demo btn-demo-primary">Ver Demo en Vivo</a>
     </div>
 
-    <!-- Producto 3: Evento Corporativo -->
     <div class="product">
+      <div class="icon">👑</div>
+      <h2>Quinceañera Elegante</h2>
+      <p style="color:var(--gris);font-size:.85rem">Estilo morado y dorado</p>
+      <div class="price">$18 <span>USD</span></div>
+      <ul>
+        <li>Diseño elegante en morado y oro</li>
+        <li>Partículas doradas flotantes</li>
+        <li>Carta de invitación personalizada</li>
+        <li>Botón de confirmación por WhatsApp</li>
+        <li>Cuenta regresiva en tiempo real</li>
+        <li>Música de fondo</li>
+      </ul>
+      <a href="plantillas/quinceañera/invitacion-xv-elegante.html" class="btn-demo btn-demo-primary">Ver Demo en Vivo</a>
+    </div>
+
+    <div class="product">
+      <div class="icon">🏢</div>
       <h2>Evento Corporativo</h2>
-      <p style="color:var(--gris);font-size:.9rem">Para empresas y celebraciones</p>
+      <p style="color:var(--gris);font-size:.85rem">Para empresas y celebraciones</p>
       <div class="price">$25 <span>USD</span></div>
       <ul>
         <li>Logo de tu empresa incluido</li>
