@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a1a2e">
+<title>Boda Elegante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --negro:#1a1a2e;--negro2:#16213e;--oro:#D4AF37;--oro2:#F4E5C2;
+  --blanco:#F8F9FA;--gris:#A0A0A0;--crema:#FFF8E7;
+  --serif:"Cormorant Garamond",Georgia,serif;--sans:"Montserrat",sans-serif;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden;background:var(--negro)}
+body{font-family:var(--sans);color:var(--blanco);font-weight:300}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:28px 20px calc(28px + env(safe-area-inset-bottom));text-align:center;overflow-x:hidden;overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;
+  background:linear-gradient(160deg,var(--negro) 0%,var(--negro2) 100%)}
+.screen.on{opacity:1;visibility:visible;z-index:2}
+.screen.on .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*.2s)}
+@keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}}
+
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,11vw,3.6rem);color:var(--oro);letter-spacing:3px;text-transform:uppercase}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,8vw,2.6rem);color:var(--oro);letter-spacing:2px}
+p{font-size:1rem;line-height:1.8;max-width:32ch;font-weight:300}
+
+/* Líneas decorativas */
+.line{width:80px;height:1px;background:var(--oro);margin:20px auto;opacity:.6}
+
+/* Tarjeta con borde dorado */
+.card{width:100%;max-width:420px;padding:40px 30px;border:1px solid var(--oro);
+  background:rgba(255,255,255,.05);backdrop-filter:blur(4px);
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+  transform-style:preserve-3d;transition:transform .15s ease-out}
+.card p{max-width:none;color:var(--blanco);opacity:.9}
+
+/* Botones */
+.btn{position:relative;min-height:52px;padding:0 38px;border:1px solid var(--oro);border-radius:0;cursor:pointer;
+  font:400 .95rem var(--sans);letter-spacing:2px;text-transform:uppercase;color:var(--oro);
+  background:transparent;transition:all .3s}
+.btn:hover{background:var(--oro);color:var(--negro)}
+.btn:active{transform:scale(.96)}
+
+/* Sobre elegante */
+.env{position:relative;width:280px;height:180px;margin:18px 0 8px;border:1px solid var(--oro);background:none;cursor:pointer;perspective:800px}
+.env>*{position:absolute}
+.env .bk{inset:0;background:var(--negro2);border-radius:2px}
+.env .ltr{left:14px;right:14px;top:10px;height:150px;background:#fffdf5;border-radius:2px;z-index:1;
+  font-family:var(--serif);font-size:1.2rem;color:var(--negro);padding-top:20px;transition:transform .9s .6s ease}
+.env .fr{inset:0;z-index:2;background:var(--negro);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.env .fl2{left:0;right:0;top:0;height:100px;z-index:3;background:var(--negro2);clip-path:polygon(0 0,100% 0,50% 58%);
+  transform-origin:50% 0;transition:transform .7s ease}
+.env .seal{left:50%;top:58%;z-index:4;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff,#D4AF37 55%);color:var(--negro);font-size:1.2rem;
+  display:flex;align-items:center;justify-content:center;transition:opacity .4s}
+.env.open .fl2{transform:rotateX(180deg);z-index:0}
+.env.open .ltr{transform:translateY(-70px)}
+.env.open .seal{opacity:0}
+
+/* Carta */
+.paper{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(26,26,46,.85);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
+.paper.on{opacity:1;visibility:visible}
+.sheet{width:100%;max-width:440px;max-height:82vh;overflow-y:auto;padding:40px 35px;
+  background:#fffdf5;border:1px solid var(--oro);box-shadow:0 20px 60px rgba(0,0,0,.5);
+  transform:translate3d(0,40px,0) scale(.92);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.paper.on .sheet{transform:none}
+.sheet h3{font:300 1.8rem/1.4 var(--serif);color:var(--negro);text-align:center;margin-bottom:20px}
+.sheet p{font-size:1rem;line-height:1.8;color:var(--negro);max-width:none}
+.sheet .firma{font-family:var(--serif);font-size:1.4rem;text-align:center;color:var(--oro);margin-top:20px;font-style:italic}
+
+/* Partículas doradas */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1}
+.particle{position:absolute;width:2px;height:2px;background:var(--oro);border-radius:50%;opacity:.4;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-30px);opacity:.8}}
+
+/* Cuenta regresiva */
+.countdown{display:flex;gap:16px;justify-content:center;margin:24px 0}
+.countdown .unit{text-align:center}
+.countdown .num{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--oro)}
+.countdown .lbl{font-size:.7rem;color:var(--gris);letter-spacing:1px;text-transform:uppercase}
+
+/* Música */
+.mus{position:fixed;z-index:10;top:calc(10px + env(safe-area-inset-top));right:10px;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--oro);background:rgba(26,26,46,.8);font-size:1.3rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;opacity:.7}
+.mus.on{opacity:1;background:var(--oro);color:var(--negro)}
+#toast{position:fixed;z-index:10;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);
+  max-width:88vw;padding:12px 18px;border-radius:4px;background:var(--negro);color:var(--oro);font-size:.9rem;
+  border:1px solid var(--oro);opacity:0;visibility:hidden;transition:.4s}
+#toast.show{opacity:1;visibility:visible}
+
+/* Movimiento reducido */
+@media (prefers-reduced-motion:reduce){
+  .particle,.screen,.sheet{animation:none!important;transition-duration:.2s!important}
+  .screen.on .rise{animation-duration:.3s}
+}
+</style>
+</head>
+<body>
+
+<!-- Partículas doradas -->
+<div id="particles" aria-hidden="true"></div>
+
+<!-- Música -->
+<audio id="bg" src="musica.mp3" loop preload="none"></audio>
+<button class="mus" id="mus" aria-label="Música" aria-pressed="false">🎵</button>
+<div id="toast" role="status"></div>
+
+<main>
+  <!-- ETAPA 1: BIENVENIDA -->
+  <section class="screen on" id="s1">
+    <div class="card" id="card1">
+      <div class="line"></div>
+      <p style="font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--gris)">Con la bendición de Dios y de nuestros padres</p>
+      <p class="para rise" style="--d:1;font-family:var(--serif);font-size:2.2rem;color:var(--oro)" data-n>María & Juan</p>
+      <h1 class="rise" style="--d:2">Nos Casamos</h1>
+      <div class="line"></div>
+      <p class="rise" style="--d:3">Te invitamos a celebrar nuestro enlace matrimonial</p>
+    </div>
+    <button class="btn pulse rise" style="--d:4" id="start">Abrir Invitación</button>
+  </section>
+
+  <!-- ETAPA 2: DETALLES Y CARTA -->
+  <section class="screen" id="s2">
+    <h2 class="rise" style="--d:0">Detalles del Evento</h2>
+    <div class="line"></div>
+    
+    <!-- Cuenta regresiva -->
+    <div class="countdown rise" style="--d:1" id="countdown">
+      <div class="unit"><div class="num" id="cd-days">00</div><div class="lbl">Días</div></div>
+      <div class="unit"><div class="num" id="cd-hours">00</div><div class="lbl">Horas</div></div>
+      <div class="unit"><div class="num" id="cd-mins">00</div><div class="lbl">Min</div></div>
+      <div class="unit"><div class="num" id="cd-secs">00</div><div class="lbl">Seg</div></div>
+    </div>
+
+    <p class="rise" style="--d:2">Toca el sobre para leer nuestra carta de invitación</p>
+    
+    <button class="env rise" style="--d:3" id="env" aria-label="Abrir la carta">
+      <i class="bk"></i>
+      <i class="ltr">Para ti 💌</i>
+      <i class="fr"></i>
+      <i class="fl2"></i>
+      <i class="seal">♥</i>
+    </button>
+
+    <div class="paper" id="paper" role="dialog">
+      <div class="sheet">
+        <h3>Queridos amigos y familia,</h3>
+        <p>Con la bendición de Dios y el amor de nuestras familias, tenemos el honor de invitarlos a celebrar nuestro matrimonio.</p>
+        <p>Será un día inolvidable lleno de amor, alegría y la compañía de todos ustedes.</p>
+        <p class="firma">María & Juan</p>
+        <button class="btn" id="closeP">Seguir</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETAPA 3: SORPRESA FINAL -->
+  <section class="screen" id="s3">
+    <div class="card">
+      <h2 class="rise" style="--d:0">Confirmación de Asistencia</h2>
+      <div class="line"></div>
+      <p class="rise" style="--d:1">Tu presencia es el mejor regalo que podemos recibir.</p>
+      <p class="rise" style="--d:2">Por favor confirma antes del 1 de Diciembre.</p>
+      <button class="btn rise pulse" style="--d:3" onclick="confirmarAsistencia()">Confirmar Asistencia en WhatsApp</button>
+    </div>
+    <button class="btn rise" style="--d:4" id="again">Volver a ver la invitación</button>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const CONFIG = { nombre: 'María & Juan', telefono: '' };
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const R = Math.random;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  $$('[data-n]').forEach(e => e.textContent = CONFIG.nombre);
+  document.title = CONFIG.nombre + ' - Nos Casamos';
+
+  // Partículas doradas flotantes
+  const particles = $('#particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${R()*100}vw;top:${R()*100}vh;animation-delay:${-R()*6}s;animation-duration:${4+R()*4}s`;
+    particles.appendChild(p);
+  }
+
+  // Navegación
+  const scr = $$('.screen');
+  function go(i) {
+    scr.forEach((s, k) => s.classList.toggle('on', k === i));
+    scr[i].scrollTop = 0;
+  }
+
+  const env = $('#env'), paper = $('#paper');
+  $('#start').onclick = () => go(1);
+  env.onclick = () => {
+    if (env.classList.contains('open')) { paper.classList.add('on'); return; }
+    env.classList.add('open');
+    setTimeout(() => paper.classList.add('on'), 1900);
+  };
+  $('#closeP').onclick = () => { paper.classList.remove('on'); go(2); };
+  $('#again').onclick = () => {
+    env.classList.remove('open');
+    paper.classList.remove('on');
+    go(0);
+  };
+
+  // WhatsApp
+  function confirmarAsistencia() {
+    const mensaje = "¡Hola! Confirmo mi asistencia a la boda de " + CONFIG.nombre + ". ¡Felicidades!";
+    const urlWhatsApp = "https://wa.me/" + CONFIG.telefono + "?text=" + encodeURIComponent(mensagem);
+    window.open(urlWhatsApp, '_blank');
+  }
+
+  // Música
+  const bg = $('#bg'), mus = $('#mus');
+  function toast(t) {
+    const e = $('#toast');
+    e.textContent = t; e.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => e.classList.remove('show'), 3500);
+  }
+  mus.onclick = () => {
+    if (bg.paused) {
+      bg.play().then(() => { mus.classList.add('on'); mus.setAttribute('aria-pressed', 'true'); })
+        .catch(() => toast('Guarda un archivo musica.mp3 para escuchar música 🎵'));
+    } else {
+      bg.pause(); mus.classList.remove('on'); mus.setAttribute('aria-pressed', 'false');
+    }
+  };
+
+  // Efecto 3D tilt
+  const cards = $$('.card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 25;
+      const rotateY = (centerX - x) / 25;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    });
+  });
+
+  // Cuenta regresiva
+  const eventDate = new Date('2026-12-20T18:00:00').getTime();
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+    if (diff <= 0) return;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    $('#cd-days').textContent = String(days).padStart(2, '0');
+    $('#cd-hours').textContent = String(hours).padStart(2, '0');
+    $('#cd-mins').textContent = String(mins).padStart(2, '0');
+    $('#cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+})();
+</script>
+</body>
+</html>
