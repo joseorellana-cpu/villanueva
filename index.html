@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Invitaciones Digitales Interactivas | Villa Nueva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--negro:#0f172a;--azul:#38bdf8;--rosa:#f43f5e;--oro:#D4AF37;--gris:#94a3b8;--blanco:#f8fafc}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Montserrat',sans-serif;background:var(--negro);color:var(--blanco);line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:60px 20px 40px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,8vw,3.5rem);color:var(--azul);margin-bottom:16px}
+.hero p{font-size:1.2rem;color:var(--gris);max-width:600px;margin:0 auto 30px}
+.badge{display:inline-block;background:rgba(56,189,248,.15);color:var(--azul);padding:6px 16px;border-radius:20px;font-size:.85rem;margin-bottom:20px}
+
+/* Productos */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;margin:40px 0}
+.product{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:30px;text-align:center;transition:transform .3s,box-shadow .3s}
+.product:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.product h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:8px}
+.product .price{font-size:2.2rem;font-weight:700;color:var(--azul);margin:16px 0}
+.product .price span{font-size:1rem;color:var(--gris);font-weight:300}
+.product ul{list-style:none;padding:0;margin:20px 0;text-align:left}
+.product ul li{padding:6px 0;color:var(--gris);font-size:.95rem}
+.product ul li::before{content:'✓ ';color:var(--azul);font-weight:700}
+.btn-demo{display:inline-block;width:100%;padding:14px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:16px;transition:all .2s}
+.btn-demo-primary{background:var(--azul);color:var(--negro)}
+.btn-demo-primary:hover{background:#0ea5e9}
+.btn-demo-secondary{background:transparent;border:1px solid var(--azul);color:var(--azul)}
+.btn-demo-secondary:hover{background:var(--azul);color:var(--negro)}
+
+/* Cómo funciona */
+.how-it-works{background:rgba(255,255,255,.03);border-radius:16px;padding:40px 30px;margin:40px 0;text-align:center}
+.how-it-works h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:30px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.step{text-align:center}
+.step .num{font-size:2.5rem;font-weight:700;color:var(--azul);opacity:.3}
+.step h3{font-size:1.1rem;margin:8px 0}
+.step p{color:var(--gris);font-size:.9rem}
+
+/* CTA final */
+.cta-final{text-align:center;padding:60px 20px}
+.cta-final h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:16px}
+.btn-whatsapp{display:inline-block;background:#25D366;color:#fff;padding:18px 40px;border-radius:30px;text-decoration:none;font-weight:700;font-size:1.2rem;transition:transform .2s}
+.btn-whatsapp:hover{transform:scale(1.05)}
+.btn-whatsapp:active{transform:scale(.98)}
+
+@media(max-width:600px){
+  .hero{padding:40px 15px 30px}
+  .products{gap:20px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <span class="badge">🔥 Tendencia 2026</span>
+    <h1>Invitaciones Digitales Interactivas</h1>
+    <p>Sorprende a tus invitados con una experiencia animada que confirma asistencia por WhatsApp. Sin imprimir, sin envíos, sin complicaciones.</p>
+  </div>
+
+  <div class="products">
+    <!-- Producto 1: Cumpleaños -->
+    <div class="product">
+      <h2>Cumpleaños Premium</h2>
+      <p style="color:var(--gris);font-size:.9rem">Ideal para fiestas infantiles y adultos</p>
+      <div class="price">$12 <span>USD</span></div>
+      <ul>
+        <li>Animación de sobre mágico</li>
+        <li>Carta personalizada con tu mensaje</li>
+        <li>Botón de confirmación por WhatsApp</li>
+        <li>Cuenta regresiva en tiempo real</li>
+        <li>Efecto 3D al tocar la tarjeta</li>
+        <li>Música de fondo</li>
+      </ul>
+      <a href="plantillas/cumpleaños/invitacion-premium.html" class="btn-demo btn-demo-primary">Ver Demo en Vivo</a>
+    </div>
+
+    <!-- Producto 2: Boda -->
+    <div class="product">
+      <h2>Boda Elegante</h2>
+      <p style="color:var(--gris);font-size:.9rem">Estilo formal y sofisticado</p>
+      <div class="price">$20 <span>USD</span></div>
+      <ul>
+        <li>Diseño minimalista en oro y negro</li>
+        <li>Partículas doradas flotantes</li>
+        <li>Carta de invitación personalizada</li>
+        <li>Botón de confirmación por WhatsApp</li>
+        <li>Cuenta regresiva en tiempo real</li>
+        <li>Música de fondo</li>
+      </ul>
+      <a href="plantillas/bodas/invitacion-boda-elegante.html" class="btn-demo btn-demo-primary">Ver Demo en Vivo</a>
+    </div>
+
+    <!-- Producto 3: Evento Corporativo -->
+    <div class="product">
+      <h2>Evento Corporativo</h2>
+      <p style="color:var(--gris);font-size:.9rem">Para empresas y celebraciones</p>
+      <div class="price">$25 <span>USD</span></div>
+      <ul>
+        <li>Logo de tu empresa incluido</li>
+        <li>Diseño sobrio y profesional</li>
+        <li>Envío masivo a múltiples contactos</li>
+        <li>Botón de confirmación por WhatsApp</li>
+        <li>Cuenta regresiva en tiempo real</li>
+        <li>Música de fondo</li>
+      </ul>
+      <a href="plantillas/cumpleaños/invitacion-premium.html" class="btn-demo btn-demo-secondary">Ver Demo Similar</a>
+    </div>
+  </div>
+
+  <div class="how-it-works">
+    <h2>¿Cómo funciona?</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Elige tu diseño</h3>
+        <p>Selecciona la plantilla que mejor se adapte a tu evento</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Envía tus datos</h3>
+        <p>Nombre, fecha, hora, lugar y tu número de WhatsApp</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Recibe tu invitación</h3>
+        <p>En menos de 24 horas recibes tu invitación lista para enviar</p>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h3>Comparte y disfruta</h3>
+        <p>Envía el link por WhatsApp a todos tus invitados</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-final">
+    <h2>¿Listo para sorprender?</h2>
+    <p style="color:var(--gris);margin-bottom:30px">Escríbeme por WhatsApp y empecemos a diseñar tu invitación</p>
+    <a href="https://wa.me/?text=Hola!%20Quiero%20pedir%20mi%20invitación%20digital%20interactiva" class="btn-whatsapp">💬 Pedir por WhatsApp</a>
+  </div>
+</div>
+</body>
+</html>
