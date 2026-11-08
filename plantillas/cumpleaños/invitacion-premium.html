@@ -5,14 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FDE2E4">
 <title>Para Rocío 🍓</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 /* ============ VARIABLES DE DISEÑO ============ */
 :root{
   --rosa:#FDE2E4;--rosa2:#FFCAD4;--cereza:#E63946;--cereza2:#D62828;
   --crema:#FFF0F5;--crema2:#FAF0CA;--fresa:#FF0054;
   --verde:#80B918;--verde2:#A7C957;--oro:#FFD700;--oro2:#F4A261;--tinta:#7a1f3d;
-  --script:"Snell Roundhand","Segoe Script","Brush Script MT","Apple Chancery",cursive;
-  --serif:Georgia,"Times New Roman",serif;
+  --script:"Great Vibes","Pinyon Script","Snell Roundhand","Segoe Script",cursive;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow-x:hidden;background:var(--crema)}
@@ -27,30 +30,30 @@ body{font-family:var(--serif);color:var(--tinta)}
              radial-gradient(circle at 92% 92%,var(--crema2) 0,transparent 42%),
              linear-gradient(160deg,var(--crema),var(--rosa))}
 .screen.on{opacity:1;visibility:visible;z-index:2}
-/* Animación de entrada de cada texto (se reinicia al volver a mostrar la pantalla) */
 .screen.on .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*.2s)}
 @keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}}
 
 h1,h2{font-family:var(--script);font-weight:400;color:var(--cereza2);line-height:1.15;
   text-shadow:0 2px 0 #fff,0 0 18px rgba(255,215,0,.45)}
-h1{font-size:clamp(2.4rem,11vw,3.6rem)}
-h2{font-size:clamp(2rem,9vw,2.8rem)}
+h1{font-size:clamp(2.6rem,12vw,4rem)}
+h2{font-size:clamp(2.2rem,10vw,3.2rem)}
 p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 .hint{font-style:italic;opacity:.85}
 
-/* Tarjeta translúcida */
+/* Tarjeta translúcida con 3D tilt */
 .card{width:100%;max-width:380px;padding:30px 22px;border-radius:28px;background:rgba(255,255,255,.55);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);
-  box-shadow:0 14px 40px rgba(214,40,40,.15);display:flex;flex-direction:column;align-items:center;gap:14px}
+  box-shadow:0 14px 40px rgba(214,40,40,.15);display:flex;flex-direction:column;align-items:center;gap:14px;
+  transform-style:preserve-3d;transition:transform .15s ease-out}
 .card p{max-width:none}
-.para{font-family:var(--script);font-size:1.7rem;color:var(--cereza)}
+.para{font-family:var(--script);font-size:2rem;color:var(--cereza);font-weight:400}
 .icons{display:flex;gap:6px;justify-content:center}
 .icons svg{width:46px;height:46px}
 
 /* Botones grandes (mín. 48px de toque) */
 .btn{position:relative;min-height:56px;padding:0 34px;border:2px solid var(--oro);border-radius:999px;cursor:pointer;
   font:700 1.1rem var(--serif);color:#fff;background:linear-gradient(135deg,var(--fresa),var(--cereza2));
-  box-shadow:0 8px 20px rgba(214,40,40,.35);transition:transform .2s}
+  box-shadow:0 8px 20px rgba(214,40,40,.35);transition:transform .2s,box-shadow .2s}
 .btn:active{transform:scale(.96)}
 .pulse::after{content:"";position:absolute;inset:-2px;border-radius:inherit;border:3px solid var(--oro);
   animation:ring 2s ease-out infinite;pointer-events:none}
@@ -62,6 +65,8 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 .pt{position:absolute;top:-8vh;left:var(--x);will-change:transform;
   animation:fall var(--t) linear var(--dl) infinite}
 .petal{width:.9em;height:1.2em;background:linear-gradient(135deg,#FFCAD4,#FF8FAB);border-radius:100% 0 100% 0;opacity:.85}
+.sparkle{position:absolute;pointer-events:none;font-size:14px;animation:sparkle 2s ease-in-out infinite;opacity:.7}
+@keyframes sparkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
 @keyframes fall{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),115vh,0) rotate(var(--r))}}
 .frame{position:fixed;inset:0;z-index:3;pointer-events:none}
 .cn{position:absolute;width:78px;height:78px;opacity:.95}
@@ -133,9 +138,15 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
   100%{transform:translate3d(105vw,-10px,0) rotate(-8deg)}}
 @keyframes flap{to{transform:scaleX(.45)}}
 
+/* ============ CUENTA REGRESIVA ============ */
+.countdown{display:flex;gap:12px;justify-content:center;margin:20px 0}
+.countdown .unit{background:rgba(255,255,255,.7);border-radius:12px;padding:8px 12px;text-align:center;min-width:60px}
+.countdown .num{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--cereza2)}
+.countdown .lbl{font-size:.75rem;color:var(--tinta);opacity:.7}
+
 /* ============ MOVIMIENTO REDUCIDO ============ */
 @media (prefers-reduced-motion:reduce){
-  .fl,.bf,.bf svg,#flame,.pulse::after{animation:none!important}
+  .fl,.bf,.bf svg,#flame,.pulse::after,.sparkle{animation:none!important}
   .screen,.sheet{transition-duration:.2s!important}
   .screen.on .rise{animation-duration:.3s}
 }
@@ -143,7 +154,7 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 </head>
 <body>
 
-<!-- ====== ILUSTRACIONES SVG REUTILIZABLES (sin recursos externos) ====== -->
+<!-- ====== ILUSTRACIONES SVG REUTILIZABLES ====== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="rose" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#E63946"/><circle cx="30" cy="30" r="19" fill="#D62828"/>
@@ -180,7 +191,7 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
   <svg class="cn br" viewBox="0 0 60 60"><use href="#berry"/></svg>
 </div>
 
-<!-- ====== MÚSICA (opcional): guarda tu MP3 como "musica.mp3" junto a este archivo ====== -->
+<!-- ====== MÚSICA ====== -->
 <audio id="bg" src="musica.mp3" loop preload="none"></audio>
 <button class="mus" id="mus" aria-label="Activar o desactivar la música" aria-pressed="false">🎵</button>
 <div id="toast" role="status"></div>
@@ -188,9 +199,11 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 <main>
   <!-- ===== ETAPA 1: BIENVENIDA ===== -->
   <section class="screen on" id="s1">
-    <div class="card">
+    <div class="card" id="card1">
       <div class="icons rise" style="--d:0" aria-hidden="true">
-        <svg viewBox="0 0 60 60"><use href="#rose"/></svg><svg viewBox="0 0 60 60"><use href="#berry"/></svg><svg viewBox="0 0 60 60"><use href="#daisy"/></svg>
+        <svg viewBox="0 0 60 60"><use href="#rose"/></svg>
+        <svg viewBox="0 0 60 60"><use href="#berry"/></svg>
+        <svg viewBox="0 0 60 60"><use href="#daisy"/></svg>
       </div>
       <p class="para rise" style="--d:1">Para <span data-n>Rocío</span></p>
       <h1 class="rise" style="--d:2">Hoy es un día muy especial...</h1>
@@ -202,6 +215,15 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
   <section class="screen" id="s2">
     <h1 class="rise" style="--d:0">¡Feliz cumpleaños, <span data-n>Rocío</span>! 🎂</h1>
     <p class="rise" style="--d:1">Hoy el mundo tiene un motivo más para celebrar. Te dejé una carta, tócala para abrirla.</p>
+    
+    <!-- Cuenta regresiva -->
+    <div class="countdown rise" style="--d:1.5" id="countdown">
+      <div class="unit"><div class="num" id="cd-days">00</div><div class="lbl">Días</div></div>
+      <div class="unit"><div class="num" id="cd-hours">00</div><div class="lbl">Horas</div></div>
+      <div class="unit"><div class="num" id="cd-mins">00</div><div class="lbl">Min</div></div>
+      <div class="unit"><div class="num" id="cd-secs">00</div><div class="lbl">Seg</div></div>
+    </div>
+
     <button class="env rise" style="--d:2" id="env" aria-label="Abrir la carta">
       <i class="bk"></i>
       <i class="ltr">Para ti 💌</i>
@@ -214,12 +236,10 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
     <div class="paper" id="paper" role="dialog" aria-label="Carta">
       <div class="sheet">
         <h3>Querida <span data-n>Rocío</span>,</h3>
-        <!-- ===== EDITAR MENSAJE AQUÍ ===== -->
         <p>Quise regalarte algo distinto: un pequeño jardín hecho con cariño, donde cada flor y cada fresa lleva un deseo para ti.</p>
         <p>Gracias por ser esa persona que llena de luz hasta los días más comunes. Tu sonrisa tiene el poder de cambiarlo todo.</p>
         <p>Que este nuevo año te devuelva multiplicado todo lo bonito que das, que cada día tenga algo dulce como las fresas y algo que florezca, como tú.</p>
         <p class="firma">Con todo mi cariño 💗</p>
-        <!-- ===== FIN DEL MENSAJE ===== -->
         <button class="btn" id="closeP">Seguir 💗</button>
       </div>
     </div>
@@ -259,12 +279,15 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 
   <!-- ===== ETAPA 4: SORPRESA FINAL ===== -->
   <section class="screen" id="s4">
-    <div class="card">
+    <div class="card" id="card4">
       <p class="para rise" style="--d:0">Para ti, <span data-n>Rocío</span></p>
       <h2 class="rise" style="--d:1">Que nunca te falten motivos para sonreír. Mereces cosas tan bonitas como tu corazón</h2>
       <p class="rise" style="--d:2">Con todo mi cariño 💗</p>
+      
+      <!-- Botón de WhatsApp -->
+      <button class="btn rise" style="--d:3" onclick="confirmarAsistencia()">Confirmar Asistencia en WhatsApp</button>
     </div>
-    <button class="btn rise" style="--d:3" id="again">Volver a vivir la sorpresa ✨</button>
+    <button class="btn rise" style="--d:4" id="again">Volver a vivir la sorpresa ✨</button>
   </section>
 </main>
 
@@ -272,19 +295,17 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 (() => {
   'use strict';
 
-  /* ===== CONFIGURACIÓN: cambia aquí el nombre ===== */
   const CONFIG = { nombre: 'Rocío' };
-
   const $  = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
   const R  = Math.random;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Inserta el nombre en todos los lugares marcados
+  // Inserta el nombre
   $$('[data-n]').forEach(e => e.textContent = CONFIG.nombre);
   document.title = 'Para ' + CONFIG.nombre + ' 🍓';
 
-  /* ===== PARTÍCULAS CAÍDAS (pétalos, fresas, corazones, brillos) ===== */
+  // Partículas caídas (pétalos, fresas, corazones, brillos)
   const icon = { b:'🍓', h:'♥', s:'✦', f:'🌸' };
   const cols = ['#FF0054', '#E63946', '#FF8FAB', '#FFCAD4'];
   function spawn(box, n, kinds, slow, fromTop) {
@@ -297,10 +318,22 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
       box.appendChild(e);
     }
   }
-  // Fondo permanente: menos partículas si el sistema pide movimiento reducido
   spawn($('#fall'), reduce ? 6 : 16, ['p','b','p','s','p','f'], reduce);
 
-  /* ===== JARDÍN DE FLORES CON BALANCEO ===== */
+  // Destellos flotantes
+  function addSparkles() {
+    const container = document.body;
+    for (let i = 0; i < 12; i++) {
+      const sp = document.createElement('span');
+      sp.className = 'sparkle';
+      sp.textContent = ['✨','⭐','💫'][i % 3];
+      sp.style.cssText = `left:${R()*100}vw;top:${R()*100}vh;animation-delay:${R()*2}s`;
+      container.appendChild(sp);
+    }
+  }
+  addSparkles();
+
+  // Jardín de flores
   const garden = $('#garden');
   ['rose','tulip','daisy','wild','rose','daisy','tulip','wild','rose'].forEach((t, i) => {
     const f = document.createElement('div');
@@ -310,7 +343,7 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
     garden.appendChild(f);
   });
 
-  /* ===== DESTELLOS AL SOPLAR LA VELA ===== */
+  // Destellos al soplar
   function burst(x, y, n) {
     for (let i = 0; i < n; i++) {
       const e = document.createElement('span'), a = R() * 6.28, d = 60 + R() * 110;
@@ -322,17 +355,16 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
     }
   }
 
-  /* ===== NAVEGACIÓN ENTRE ETAPAS ===== */
+  // Navegación
   const scr = $$('.screen'), rain = $('#rain');
   function go(i) {
     scr.forEach((s, k) => s.classList.toggle('on', k === i));
     scr[i].scrollTop = 0;
     rain.innerHTML = '';
-    // Lluvia de celebración en la sorpresa final
     if (i === 3) spawn(rain, reduce ? 20 : 70, ['p','h','f','s','p','h','b'], reduce, true);
   }
 
-  /* ===== EVENTOS ===== */
+  // Eventos
   const env = $('#env'), paper = $('#paper'), cake = $('#cake');
   let blown = false;
 
@@ -340,15 +372,15 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
 
   env.onclick = () => {
     if (env.classList.contains('open')) { paper.classList.add('on'); return; }
-    env.classList.add('open');                       // abre la solapa y sube la carta
-    setTimeout(() => paper.classList.add('on'), 1900); // luego se muestra la carta completa
+    env.classList.add('open');
+    setTimeout(() => paper.classList.add('on'), 1900);
   };
   $('#closeP').onclick = () => { paper.classList.remove('on'); go(2); };
 
   cake.onclick = () => {
     if (blown) return;
     blown = true;
-    cake.classList.add('out');                        // se apaga la llama
+    cake.classList.add('out');
     const r = $('#flame').getBoundingClientRect();
     burst(r.left + r.width / 2, r.top + r.height / 2, reduce ? 8 : 26);
     $('#wish').classList.add('show');
@@ -356,7 +388,6 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
   };
   $('#n3').onclick = () => go(3);
 
-  // Reinicio completo sin recargar la página
   $('#again').onclick = () => {
     env.classList.remove('open');
     paper.classList.remove('on');
@@ -367,7 +398,14 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
     go(0);
   };
 
-  /* ===== MÚSICA (solo con interacción del usuario) ===== */
+  // WhatsApp
+  function confirmarAsistencia() {
+    const mensaje = "¡Hola! Confirmo mi asistencia a la fiesta de cumpleaños de " + CONFIG.nombre + ". ¡Muchas gracias!";
+    const urlWhatsApp = "https://wa.me/?text=" + encodeURIComponent(mensagem);
+    window.open(urlWhatsApp, '_blank');
+  }
+
+  // Música
   const bg = $('#bg'), mus = $('#mus');
   function toast(t) {
     const e = $('#toast');
@@ -378,11 +416,53 @@ p{font-size:1.1rem;line-height:1.6;max-width:30ch}
   mus.onclick = () => {
     if (bg.paused) {
       bg.play().then(() => { mus.classList.add('on'); mus.setAttribute('aria-pressed', 'true'); })
-        .catch(() => toast('Guarda un archivo musica.mp3 junto a cumpleanos.html para escuchar música 🎵'));
+        .catch(() => toast('Guarda un archivo musica.mp3 junto a este archivo para escuchar música 🎵'));
     } else {
       bg.pause(); mus.classList.remove('on'); mus.setAttribute('aria-pressed', 'false');
     }
   };
+
+  // Efecto 3D tilt en tarjetas
+  const cards = $$('.card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+    });
+  });
+
+  // Cuenta regresiva (configurar fecha del evento)
+  const eventDate = new Date('2026-12-15T20:00:00').getTime();
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+    if (diff <= 0) {
+      $('#cd-days').textContent = '00';
+      $('#cd-hours').textContent = '00';
+      $('#cd-mins').textContent = '00';
+      $('#cd-secs').textContent = '00';
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    $('#cd-days').textContent = String(days).padStart(2, '0');
+    $('#cd-hours').textContent = String(hours).padStart(2, '0');
+    $('#cd-mins').textContent = String(mins).padStart(2, '0');
+    $('#cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
 })();
 </script>
 </body>
