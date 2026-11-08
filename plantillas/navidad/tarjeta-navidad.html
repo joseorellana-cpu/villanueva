@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Navideña</title>
+    <style>
+        body { margin: 0; padding: 0; background: #1a1a2e; font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .sobre { width: 90%; max-width: 500px; height: 400px; background: #c41e3a; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden; cursor: pointer; transition: transform 0.5s; }
+        .tarjeta { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e94560; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; transform: translateY(100%); transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sobre.abierto .tarjeta { transform: translateY(0); }
+        .sobre::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 50%); }
+        .tarjeta h1 { color: #f8f9fa; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #e94560; }
+        .tarjeta p { color: #adb5bd; font-size: 1.1rem; margin-bottom: 20px; }
+        .boton { background: #e94560; color: white; padding: 12px 25px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .boton:hover { background: #ff6b81; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="sobre" id="sobre">
+        <div class="tarjeta">
+            <h1>¡Feliz Navidad y Próspero Año Nuevo!</h1>
+            <p>Te deseamos un año lleno de amor, salud y éxito.</p>
+            <button class="boton" onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+        </div>
+    </div>
+
+    <script>
+        function confirmarAsistencia() {
+            const mensaje = "¡Hola! Confirmo mi asistencia a la celebración. ¡Gracias por la invitación!";
+            const urlWhatsApp = "https://wa.me/34123456789?text=" + encodeURIComponent(mensagem);
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        document.getElementById('sobre').addEventListener('click', function() {
+            this.classList.add('abierto');
+        });
+    </script>
+</body>
+</html>

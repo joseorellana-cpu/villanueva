@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FDE2E4">
+<title>Para Rocío 🍓</title>
+<style>
+/* ============ VARIABLES DE DISEÑO ============ */
+:root{
+  --rosa:#FDE2E4;--rosa2:#FFCAD4;--cereza:#E63946;--cereza2:#D62828;
+  --crema:#FFF0F5;--crema2:#FAF0CA;--fresa:#FF0054;
+  --verde:#80B918;--verde2:#A7C957;--oro:#FFD700;--oro2:#F4A261;--tinta:#7a1f3d;
+  --script:"Snell Roundhand","Segoe Script","Brush Script MT","Apple Chancery",cursive;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow-x:hidden;background:var(--crema)}
+body{font-family:var(--serif);color:var(--tinta)}
+:focus-visible{outline:3px solid var(--oro2);outline-offset:3px}
+
+/* ============ PANTALLAS ============ */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  padding:28px 20px calc(28px + env(safe-area-inset-bottom));text-align:center;overflow-x:hidden;overflow-y:auto;
+  opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;
+  background:radial-gradient(circle at 15% 8%,var(--rosa2) 0,transparent 45%),
+             radial-gradient(circle at 92% 92%,var(--crema2) 0,transparent 42%),
+             linear-gradient(160deg,var(--crema),var(--rosa))}
+.screen.on{opacity:1;visibility:visible;z-index:2}
+/* Animación de entrada de cada texto (se reinicia al volver a mostrar la pantalla) */
+.screen.on .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*.2s)}
+@keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}}
+
+h1,h2{font-family:var(--script);font-weight:400;color:var(--cereza2);line-height:1.15;
+  text-shadow:0 2px 0 #fff,0 0 18px rgba(255,215,0,.45)}
+h1{font-size:clamp(2.4rem,11vw,3.6rem)}
+h2{font-size:clamp(2rem,9vw,2.8rem)}
+p{font-size:1.1rem;line-height:1.6;max-width:30ch}
+.hint{font-style:italic;opacity:.85}
+
+/* Tarjeta translúcida */
+.card{width:100%;max-width:380px;padding:30px 22px;border-radius:28px;background:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 14px 40px rgba(214,40,40,.15);display:flex;flex-direction:column;align-items:center;gap:14px}
+.card p{max-width:none}
+.para{font-family:var(--script);font-size:1.7rem;color:var(--cereza)}
+.icons{display:flex;gap:6px;justify-content:center}
+.icons svg{width:46px;height:46px}
+
+/* Botones grandes (mín. 48px de toque) */
+.btn{position:relative;min-height:56px;padding:0 34px;border:2px solid var(--oro);border-radius:999px;cursor:pointer;
+  font:700 1.1rem var(--serif);color:#fff;background:linear-gradient(135deg,var(--fresa),var(--cereza2));
+  box-shadow:0 8px 20px rgba(214,40,40,.35);transition:transform .2s}
+.btn:active{transform:scale(.96)}
+.pulse::after{content:"";position:absolute;inset:-2px;border-radius:inherit;border:3px solid var(--oro);
+  animation:ring 2s ease-out infinite;pointer-events:none}
+@keyframes ring{from{opacity:.9}to{transform:scale(1.2,1.5);opacity:0}}
+
+/* ============ CAPAS FIJAS ============ */
+#fall,#rain{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+#fall{z-index:3}#rain{z-index:4}
+.pt{position:absolute;top:-8vh;left:var(--x);will-change:transform;
+  animation:fall var(--t) linear var(--dl) infinite}
+.petal{width:.9em;height:1.2em;background:linear-gradient(135deg,#FFCAD4,#FF8FAB);border-radius:100% 0 100% 0;opacity:.85}
+@keyframes fall{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(var(--dx),115vh,0) rotate(var(--r))}}
+.frame{position:fixed;inset:0;z-index:3;pointer-events:none}
+.cn{position:absolute;width:78px;height:78px;opacity:.95}
+.tl{top:-14px;left:-14px;transform:rotate(-20deg)}
+.bl{bottom:-14px;left:-14px;transform:rotate(25deg)}
+.br{bottom:-14px;right:-14px;transform:rotate(-15deg)}
+.mus{position:fixed;z-index:10;top:calc(10px + env(safe-area-inset-top));right:10px;width:52px;height:52px;border-radius:50%;
+  border:2px solid var(--oro);background:rgba(255,255,255,.75);font-size:1.5rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;opacity:.7}
+.mus.on{opacity:1;background:#fff}
+.mus:not(.on)::after{content:"";position:absolute;width:32px;height:3px;background:var(--cereza2);transform:rotate(-45deg);border-radius:2px}
+#toast{position:fixed;z-index:10;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);
+  width:max-content;max-width:88vw;padding:12px 18px;border-radius:16px;background:var(--tinta);color:#fff;font-size:.95rem;
+  opacity:0;visibility:hidden;transition:.4s}
+#toast.show{opacity:1;visibility:visible}
+.sp{position:fixed;z-index:9;pointer-events:none;font-size:18px;margin:-9px 0 0 -9px;animation:sp 1s ease-out forwards}
+@keyframes sp{to{transform:translate3d(var(--dx),var(--dy),0) scale(.4) rotate(120deg);opacity:0}}
+
+/* ============ SOBRE Y CARTA ============ */
+.env{position:relative;width:260px;height:170px;margin:18px 0 8px;border:0;background:none;cursor:pointer;perspective:800px;display:block}
+.env>*{position:absolute}
+.env .bk{inset:0;background:var(--cereza);border-radius:8px 8px 12px 12px;box-shadow:0 12px 26px rgba(214,40,40,.3)}
+.env .ltr{left:14px;right:14px;top:10px;height:140px;background:#fffdf5;border-radius:6px;z-index:1;
+  font-family:var(--script);font-size:1.4rem;color:var(--cereza2);padding-top:18px;transition:transform .9s .6s ease}
+.env .fr{inset:0;z-index:2;background:var(--fresa);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border-radius:8px 8px 12px 12px}
+.env .fl2{left:0;right:0;top:0;height:100px;z-index:3;background:#FF4D7D;clip-path:polygon(0 0,100% 0,50% 58%);
+  transform-origin:50% 0;transition:transform .7s ease}
+.env .seal{left:50%;top:58%;z-index:4;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff3a0,var(--oro) 55%,var(--oro2));color:var(--cereza2);font-size:1.5rem;
+  display:flex;align-items:center;justify-content:center;transition:opacity .4s}
+.env.open .fl2{transform:rotateX(180deg);z-index:0}
+.env.open .ltr{transform:translateY(-70px)}
+.env.open .seal{opacity:0}
+.paper{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(255,240,245,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
+.paper.on{opacity:1;visibility:visible}
+.sheet{width:100%;max-width:400px;max-height:82vh;max-height:86dvh;overflow-y:auto;padding:26px 24px;border-radius:10px;text-align:left;
+  background:repeating-linear-gradient(#fffdf5 0 31px,#f6dfe3 31px 32px);box-shadow:0 20px 50px rgba(122,31,61,.3);
+  transform:translate3d(0,40px,0) scale(.92);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.paper.on .sheet{transform:none}
+.sheet h3{font:400 1.7rem/32px var(--script);color:var(--cereza2)}
+.sheet p{font-size:1.02rem;line-height:32px;max-width:none}
+.sheet .firma{font-family:var(--script);font-size:1.5rem;text-align:right;color:var(--cereza)}
+.sheet .btn{display:block;margin:18px auto 0}
+
+/* ============ JARDÍN, TARTA, MARIPOSAS ============ */
+#s3{padding-bottom:150px}
+.cake{width:min(78vw,300px);border:0;background:none;cursor:pointer;padding:0}
+.cake svg{width:100%;height:auto;display:block;overflow:visible}
+#flame{transform-origin:120px 48px;animation:flick .5s ease-in-out infinite alternate;transition:opacity .4s}
+@keyframes flick{from{transform:scale(1,1) rotate(-2deg)}to{transform:scale(.92,1.12) rotate(2deg)}}
+.cake.out #flame{opacity:0;animation:none}
+.later{opacity:0;visibility:hidden;transition:opacity .7s,visibility .7s}
+.later.show{opacity:1;visibility:visible}
+.wish{font-family:var(--script);font-size:1.7rem;color:var(--cereza)}
+.garden{position:fixed;left:0;right:0;bottom:0;height:140px;pointer-events:none}
+.fl{position:absolute;bottom:-4px;display:flex;flex-direction:column;align-items:center;transform-origin:50% 100%;
+  will-change:transform;animation:sway 3.5s ease-in-out infinite alternate}
+.fl svg{width:var(--s);height:var(--s);display:block}
+.st{display:block;width:4px;height:var(--h);border-radius:2px;background:linear-gradient(var(--verde2),#5a9a10)}
+@keyframes sway{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+.bf{position:fixed;top:var(--t);left:0;z-index:4;width:44px;pointer-events:none;will-change:transform;
+  animation:fly var(--s) ease-in-out var(--dl) infinite alternate}
+.bf svg{display:block;width:100%;animation:flap .3s ease-in-out infinite alternate}
+@keyframes fly{0%{transform:translate3d(-60px,20px,0) rotate(15deg)}
+  30%{transform:translate3d(30vw,-30px,0) rotate(-10deg)}
+  60%{transform:translate3d(62vw,40px,0) rotate(12deg)}
+  100%{transform:translate3d(105vw,-10px,0) rotate(-8deg)}}
+@keyframes flap{to{transform:scaleX(.45)}}
+
+/* ============ MOVIMIENTO REDUCIDO ============ */
+@media (prefers-reduced-motion:reduce){
+  .fl,.bf,.bf svg,#flame,.pulse::after{animation:none!important}
+  .screen,.sheet{transition-duration:.2s!important}
+  .screen.on .rise{animation-duration:.3s}
+}
+</style>
+</head>
+<body>
+
+<!-- ====== ILUSTRACIONES SVG REUTILIZABLES (sin recursos externos) ====== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="rose" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#E63946"/><circle cx="30" cy="30" r="19" fill="#D62828"/>
+      <path d="M30 14c9 0 14 8 9 14s-14 4-14-3 8-8 10-3" fill="none" stroke="#FF5C7A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M30 24c5 0 6 5 2 6" fill="none" stroke="#FFCAD4" stroke-width="2.5" stroke-linecap="round"/></symbol>
+    <symbol id="tulip" viewBox="0 0 60 60"><path d="M10 12l12 10 8-14 8 14 12-10c4 24-4 42-20 42S6 36 10 12z" fill="#FF4D7D"/>
+      <path d="M30 8l8 14 12-10c1 8 0 15-2 21-4-8-10-14-18-25z" fill="#FF0054" opacity=".6"/></symbol>
+    <symbol id="daisy" viewBox="0 0 60 60"><g fill="#fff" stroke="#FFCAD4" stroke-width="1">
+      <ellipse cx="30" cy="14" rx="6" ry="12"/><ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(45 30 30)"/>
+      <ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(90 30 30)"/><ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(135 30 30)"/>
+      <ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(180 30 30)"/><ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(225 30 30)"/>
+      <ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(270 30 30)"/><ellipse cx="30" cy="14" rx="6" ry="12" transform="rotate(315 30 30)"/></g>
+      <circle cx="30" cy="30" r="8" fill="#FFD700"/><circle cx="30" cy="30" r="4" fill="#F4A261"/></symbol>
+    <symbol id="wild" viewBox="0 0 60 60"><g fill="#FFCAD4" stroke="#FF8FAB" stroke-width="1.5">
+      <circle cx="30" cy="14" r="10"/><circle cx="46" cy="26" r="10"/><circle cx="40" cy="45" r="10"/><circle cx="20" cy="45" r="10"/><circle cx="14" cy="26" r="10"/></g>
+      <circle cx="30" cy="31" r="7" fill="#FFD700"/></symbol>
+    <symbol id="berry" viewBox="0 0 60 60"><path d="M30 56C10 46 6 28 11 21c6-4 13-2 19-2s13-2 19 2c5 7 1 25-19 35z" fill="#FF0054"/>
+      <path d="M30 22l-11-9 7 1-3-8 7 7 3-8 3 8 7-7-3 8 7-1z" fill="#80B918"/>
+      <g fill="#FAF0CA"><ellipse cx="22" cy="32" rx="1.8" ry="2.6"/><ellipse cx="34" cy="30" rx="1.8" ry="2.6"/><ellipse cx="42" cy="38" rx="1.8" ry="2.6"/>
+      <ellipse cx="28" cy="42" rx="1.8" ry="2.6"/><ellipse cx="18" cy="42" rx="1.8" ry="2.6"/><ellipse cx="35" cy="48" rx="1.8" ry="2.6"/></g></symbol>
+    <symbol id="bfly" viewBox="0 0 60 50"><path d="M30 25C22 2 4 2 6 18c1 10 14 12 24 7z" fill="#FF8FAB"/><path d="M30 25C38 2 56 2 54 18c-1 10-14 12-24 7z" fill="#FF8FAB"/>
+      <path d="M30 27C20 30 10 34 16 44c6 6 12-4 14-17z" fill="#FFCAD4"/><path d="M30 27c10 3 20 7 14 17-6 6-12-4-14-17z" fill="#FFCAD4"/>
+      <circle cx="16" cy="16" r="3" fill="#FFD700"/><circle cx="44" cy="16" r="3" fill="#FFD700"/>
+      <ellipse cx="30" cy="26" rx="2.2" ry="11" fill="#7a1f3d"/></symbol>
+  </defs>
+</svg>
+
+<!-- Capas de partículas y decoración fija -->
+<div id="fall" aria-hidden="true"></div>
+<div id="rain" aria-hidden="true"></div>
+<div class="frame" aria-hidden="true">
+  <svg class="cn tl" viewBox="0 0 60 60"><use href="#daisy"/></svg>
+  <svg class="cn bl" viewBox="0 0 60 60"><use href="#rose"/></svg>
+  <svg class="cn br" viewBox="0 0 60 60"><use href="#berry"/></svg>
+</div>
+
+<!-- ====== MÚSICA (opcional): guarda tu MP3 como "musica.mp3" junto a este archivo ====== -->
+<audio id="bg" src="musica.mp3" loop preload="none"></audio>
+<button class="mus" id="mus" aria-label="Activar o desactivar la música" aria-pressed="false">🎵</button>
+<div id="toast" role="status"></div>
+
+<main>
+  <!-- ===== ETAPA 1: BIENVENIDA ===== -->
+  <section class="screen on" id="s1">
+    <div class="card">
+      <div class="icons rise" style="--d:0" aria-hidden="true">
+        <svg viewBox="0 0 60 60"><use href="#rose"/></svg><svg viewBox="0 0 60 60"><use href="#berry"/></svg><svg viewBox="0 0 60 60"><use href="#daisy"/></svg>
+      </div>
+      <p class="para rise" style="--d:1">Para <span data-n>Rocío</span></p>
+      <h1 class="rise" style="--d:2">Hoy es un día muy especial...</h1>
+    </div>
+    <button class="btn pulse rise" style="--d:3" id="start">Abrir mi sorpresa 💗</button>
+  </section>
+
+  <!-- ===== ETAPA 2: FELICITACIÓN Y CARTA ===== -->
+  <section class="screen" id="s2">
+    <h1 class="rise" style="--d:0">¡Feliz cumpleaños, <span data-n>Rocío</span>! 🎂</h1>
+    <p class="rise" style="--d:1">Hoy el mundo tiene un motivo más para celebrar. Te dejé una carta, tócala para abrirla.</p>
+    <button class="env rise" style="--d:2" id="env" aria-label="Abrir la carta">
+      <i class="bk"></i>
+      <i class="ltr">Para ti 💌</i>
+      <i class="fr"></i>
+      <i class="fl2"></i>
+      <i class="seal">♥</i>
+    </button>
+    <p class="hint rise" style="--d:3">Toca el sobre</p>
+
+    <div class="paper" id="paper" role="dialog" aria-label="Carta">
+      <div class="sheet">
+        <h3>Querida <span data-n>Rocío</span>,</h3>
+        <!-- ===== EDITAR MENSAJE AQUÍ ===== -->
+        <p>Quise regalarte algo distinto: un pequeño jardín hecho con cariño, donde cada flor y cada fresa lleva un deseo para ti.</p>
+        <p>Gracias por ser esa persona que llena de luz hasta los días más comunes. Tu sonrisa tiene el poder de cambiarlo todo.</p>
+        <p>Que este nuevo año te devuelva multiplicado todo lo bonito que das, que cada día tenga algo dulce como las fresas y algo que florezca, como tú.</p>
+        <p class="firma">Con todo mi cariño 💗</p>
+        <!-- ===== FIN DEL MENSAJE ===== -->
+        <button class="btn" id="closeP">Seguir 💗</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ETAPA 3: JARDÍN Y TARTA ===== -->
+  <section class="screen" id="s3">
+    <h2 class="rise" style="--d:0">Un jardín para ti 🌷</h2>
+    <p class="hint rise" style="--d:1">Toca la tarta y pide un deseo</p>
+    <button class="cake rise" style="--d:2" id="cake" aria-label="Soplar la vela de la tarta">
+      <svg viewBox="0 0 240 230" aria-hidden="true">
+        <ellipse cx="120" cy="208" rx="108" ry="14" fill="#fff" stroke="#FFD700" stroke-width="3"/>
+        <rect x="28" y="140" width="184" height="66" rx="14" fill="#FFCAD4"/>
+        <rect x="28" y="140" width="184" height="10" fill="#fff"/>
+        <path d="M38 150H202" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-dasharray="0 20"/>
+        <g fill="#FFD700"><circle cx="58" cy="176" r="3"/><circle cx="98" cy="188" r="3"/><circle cx="140" cy="174" r="3"/><circle cx="182" cy="188" r="3"/><circle cx="118" cy="170" r="3"/></g>
+        <rect x="56" y="92" width="128" height="50" rx="12" fill="#FF8FAB"/>
+        <rect x="56" y="92" width="128" height="10" fill="#fff"/>
+        <path d="M66 102H174" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 18"/>
+        <use href="#berry" x="58" y="68" width="30" height="30"/><use href="#berry" x="84" y="72" width="26" height="26"/>
+        <use href="#berry" x="130" y="72" width="26" height="26"/><use href="#berry" x="152" y="68" width="30" height="30"/>
+        <rect x="115" y="52" width="10" height="40" rx="3" fill="#FFF0F5" stroke="#FFD700" stroke-width="1.5"/>
+        <path d="M115 62l10 6M115 74l10 6" stroke="#FF8FAB" stroke-width="3"/>
+        <path d="M120 48v5" stroke="#7a1f3d" stroke-width="2"/>
+        <g id="flame"><circle cx="120" cy="36" r="18" fill="#FFD700" opacity=".3"/>
+          <path d="M120 22c7 9 9 14 0 26-9-12-7-17 0-26z" fill="#F4A261"/><path d="M120 31c3 5 4 8 0 14-4-6-3-9 0-14z" fill="#FFD700"/></g>
+      </svg>
+    </button>
+    <p class="wish later" id="wish">Deseo guardado ✨</p>
+    <button class="btn pulse later" id="n3">Continuar 💗</button>
+
+    <div class="garden" id="garden" aria-hidden="true"></div>
+    <div class="bf" style="--t:8%;--s:19s;--dl:0s" aria-hidden="true"><svg viewBox="0 0 60 50"><use href="#bfly"/></svg></div>
+    <div class="bf" style="--t:34%;--s:25s;--dl:-9s" aria-hidden="true"><svg viewBox="0 0 60 50"><use href="#bfly"/></svg></div>
+    <div class="bf" style="--t:58%;--s:22s;--dl:-4s" aria-hidden="true"><svg viewBox="0 0 60 50"><use href="#bfly"/></svg></div>
+  </section>
+
+  <!-- ===== ETAPA 4: SORPRESA FINAL ===== -->
+  <section class="screen" id="s4">
+    <div class="card">
+      <p class="para rise" style="--d:0">Para ti, <span data-n>Rocío</span></p>
+      <h2 class="rise" style="--d:1">Que nunca te falten motivos para sonreír. Mereces cosas tan bonitas como tu corazón</h2>
+      <p class="rise" style="--d:2">Con todo mi cariño 💗</p>
+    </div>
+    <button class="btn rise" style="--d:3" id="again">Volver a vivir la sorpresa ✨</button>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ===== CONFIGURACIÓN: cambia aquí el nombre ===== */
+  const CONFIG = { nombre: 'Rocío' };
+
+  const $  = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const R  = Math.random;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Inserta el nombre en todos los lugares marcados
+  $$('[data-n]').forEach(e => e.textContent = CONFIG.nombre);
+  document.title = 'Para ' + CONFIG.nombre + ' 🍓';
+
+  /* ===== PARTÍCULAS CAÍDAS (pétalos, fresas, corazones, brillos) ===== */
+  const icon = { b:'🍓', h:'♥', s:'✦', f:'🌸' };
+  const cols = ['#FF0054', '#E63946', '#FF8FAB', '#FFCAD4'];
+  function spawn(box, n, kinds, slow, fromTop) {
+    for (let i = 0; i < n; i++) {
+      const k = kinds[i % kinds.length], e = document.createElement('span');
+      e.className = 'pt' + (k === 'p' ? ' petal' : '');
+      if (k !== 'p') { e.textContent = icon[k]; e.style.color = k === 's' ? '#FFD700' : cols[i % 4]; }
+      e.style.cssText += `--x:${R()*100}vw;--dx:${(R()-.5)*30}vw;--r:${(R()<.5?-1:1)*(180+R()*360)}deg;` +
+        `--t:${(6+R()*7)*(slow?2:1)}s;--dl:${fromTop ? R()*3 : -R()*10}s;font-size:${12+R()*14}px`;
+      box.appendChild(e);
+    }
+  }
+  // Fondo permanente: menos partículas si el sistema pide movimiento reducido
+  spawn($('#fall'), reduce ? 6 : 16, ['p','b','p','s','p','f'], reduce);
+
+  /* ===== JARDÍN DE FLORES CON BALANCEO ===== */
+  const garden = $('#garden');
+  ['rose','tulip','daisy','wild','rose','daisy','tulip','wild','rose'].forEach((t, i) => {
+    const f = document.createElement('div');
+    f.className = 'fl';
+    f.style.cssText = `left:${i*11.5+1}%;--s:${34+R()*20}px;--h:${30+R()*50}px;animation-delay:${-R()*3}s`;
+    f.innerHTML = `<svg viewBox="0 0 60 60"><use href="#${t}"/></svg><i class="st"></i>`;
+    garden.appendChild(f);
+  });
+
+  /* ===== DESTELLOS AL SOPLAR LA VELA ===== */
+  function burst(x, y, n) {
+    for (let i = 0; i < n; i++) {
+      const e = document.createElement('span'), a = R() * 6.28, d = 60 + R() * 110;
+      e.className = 'sp';
+      e.textContent = ['✨','💗','🌸','⭐'][i % 4];
+      e.style.cssText = `left:${x}px;top:${y}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d-40}px`;
+      document.body.appendChild(e);
+      setTimeout(() => e.remove(), 1100);
+    }
+  }
+
+  /* ===== NAVEGACIÓN ENTRE ETAPAS ===== */
+  const scr = $$('.screen'), rain = $('#rain');
+  function go(i) {
+    scr.forEach((s, k) => s.classList.toggle('on', k === i));
+    scr[i].scrollTop = 0;
+    rain.innerHTML = '';
+    // Lluvia de celebración en la sorpresa final
+    if (i === 3) spawn(rain, reduce ? 20 : 70, ['p','h','f','s','p','h','b'], reduce, true);
+  }
+
+  /* ===== EVENTOS ===== */
+  const env = $('#env'), paper = $('#paper'), cake = $('#cake');
+  let blown = false;
+
+  $('#start').onclick = () => go(1);
+
+  env.onclick = () => {
+    if (env.classList.contains('open')) { paper.classList.add('on'); return; }
+    env.classList.add('open');                       // abre la solapa y sube la carta
+    setTimeout(() => paper.classList.add('on'), 1900); // luego se muestra la carta completa
+  };
+  $('#closeP').onclick = () => { paper.classList.remove('on'); go(2); };
+
+  cake.onclick = () => {
+    if (blown) return;
+    blown = true;
+    cake.classList.add('out');                        // se apaga la llama
+    const r = $('#flame').getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2, reduce ? 8 : 26);
+    $('#wish').classList.add('show');
+    $('#n3').classList.add('show');
+  };
+  $('#n3').onclick = () => go(3);
+
+  // Reinicio completo sin recargar la página
+  $('#again').onclick = () => {
+    env.classList.remove('open');
+    paper.classList.remove('on');
+    cake.classList.remove('out');
+    blown = false;
+    $('#wish').classList.remove('show');
+    $('#n3').classList.remove('show');
+    go(0);
+  };
+
+  /* ===== MÚSICA (solo con interacción del usuario) ===== */
+  const bg = $('#bg'), mus = $('#mus');
+  function toast(t) {
+    const e = $('#toast');
+    e.textContent = t; e.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => e.classList.remove('show'), 3500);
+  }
+  mus.onclick = () => {
+    if (bg.paused) {
+      bg.play().then(() => { mus.classList.add('on'); mus.setAttribute('aria-pressed', 'true'); })
+        .catch(() => toast('Guarda un archivo musica.mp3 junto a cumpleanos.html para escuchar música 🎵'));
+    } else {
+      bg.pause(); mus.classList.remove('on'); mus.setAttribute('aria-pressed', 'false');
+    }
+  };
+})();
+</script>
+</body>
+</html>

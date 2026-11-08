@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación Cumpleaños</title>
+    <style>
+        body { margin: 0; padding: 0; background: #2d1b69; font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .sobre { width: 90%; max-width: 500px; height: 450px; background: #ff9a00; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden; cursor: pointer; transition: transform 0.5s; }
+        .tarjeta { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #2d1b69 0%, #1b0764 100%); color: #ffd700; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; transform: translateY(100%); transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sobre.abierto .tarjeta { transform: translateY(0); }
+        .tarjeta h1 { color: #ffd700; font-size: 2.2rem; margin-bottom: 10px; text-shadow: 0 0 10px #ff9a00; }
+        .tarjeta p { color: #e0e0e0; font-size: 1.1rem; margin-bottom: 20px; }
+        .boton { background: #ffd700; color: #2d1b69; padding: 12px 25px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: all 0.3s; }
+        .boton:hover { background: #ffed4e; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="sobre" id="sobre">
+        <div class="tarjeta">
+            <h1>¡Invitación al Cumpleaños!</h1>
+            <p>Te esperamos el 15 de Diciembre a las 8:00 PM en el Centro de Eventos.</p>
+            <button class="boton" onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+        </div>
+    </div>
+
+    <script>
+        function confirmarAsistencia() {
+            const mensaje = "¡Hola! Confirmo mi asistencia al cumpleaños. ¡Muchas gracias por la invitación!";
+            const urlWhatsApp = "https://wa.me/34123456789?text=" + encodeURIComponent(mensagem);
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        document.getElementById('sobre').addEventListener('click', function() {
+            this.classList.add('abierto');
+        });
+    </script>
+</body>
+</html>
